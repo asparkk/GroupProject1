@@ -56,3 +56,8 @@ def test_confusion_matrix_invariants():
 def test_most_confused_pairs():
     cm = confusion_matrix(Y_TRUE, Y_PRED, 3)
     assert most_confused_pairs(cm, 1)[0][2] == 1
+
+def test_per_class_report_structure():
+    report = per_class_report(Y_TRUE, Y_PRED, 3)
+    assert np.isclose(report["accuracy"], 4 / 6)
+    assert report["per_class"][1]["support"] == 2  # two true 1s
