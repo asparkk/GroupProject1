@@ -29,3 +29,44 @@ def split_train_val(X,y,seed):
     train_rows = order[:cut]
     val_rows = order[cut:]
     return X[train_rows], y[train_rows], X[val_rows], y[val_rows]
+def make_batches(X,y, batch_size,seed):
+    X= np.asarray(X)
+    y= np.asarray(y)
+    if len(X.shape) != 2:
+        raise ValueError("Value Error")
+    if len(y.shape) != 1:
+        raise ValueError("Value Error")
+    if len(X)!= len(y): 
+        raise ValueError("Value Error")
+    if isinstance(batch_size, bool):
+        raise ValueError("Value Error")
+    if not isinstance(batch_size, (int,np.integer)):
+        raise ValueError("Value Error")
+    if batch_size < 1:
+        raise ValueError("Value Error")
+    n = len(X)
+    rng = np.random.default_rng(seed)
+    order = rng.permutation(n)
+    batches = []
+    for start in range(0, n, batch_size):
+        rows = order[start:start + batch_size]
+        batches.append((X[rows],y[rows]))
+    return batches
+def count_overlap(A, B):
+    A = np.asarray(A)
+    B = np.asarray(B)
+
+    if len(A.shape) != 2:
+        raise ValueError("Value Error")
+    if len(B.shape) != 2:
+        raise ValueError("Value Error")
+    if A.shape[1] != B.shape[1]:
+        raise ValueError("Value Error")
+    seen = set()
+    for i in range(len(B)):
+        seen.add(B[i].tobytes())
+    count = 0
+    for i in range(len(A)):
+        if A[i].tobytes() in seen:
+            count = count + 1
+    return count
