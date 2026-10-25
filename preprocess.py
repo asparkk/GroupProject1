@@ -70,3 +70,19 @@ def count_overlap(A, B):
         if A[i].tobytes() in seen:
             count = count + 1
     return count
+def prepare_data(folder, seed):
+    X_train_full, y_train_full, X_test, y_test = load_mnist(folder)
+    X_train_full = normalize(X_train_full)
+    X_test = normalize(X_test)
+    X_train, y_train, X_val, y_val = split_train_val(X_train_full,y_train_full, seed)
+    y_train - y_train.astype(int)
+    y_val = y_val.astype(int)
+    y_test = y_test.astype(int)
+    return {
+        "X_train": X_train,
+        "y_train": y_train,
+        "X_val": X_val,
+        "y_val": y_val,
+        "X_test": X_test,
+        "y_test": y_test,
+    }
