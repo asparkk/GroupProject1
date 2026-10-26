@@ -1,7 +1,6 @@
 import numpy as np
 from sklearn.metrics import precision_recall_fscore_support  # used ONLY to cross-check
-from src.evaluation.metrics import (accuracy, confusion_matrix, precision_recall_f1,
-                                    macro_f1, per_class_report, most_confused_pairs)
+from src.evaluation.metrics import (accuracy, confusion_matrix, precision_recall_f1, macro_f1, per_class_report, most_confused_pairs)
 
 # 6 samples, 3 classes. Hand-computed confusion matrix:
 #   true 0 -> predicted 0 once, 1 once   | true 1 -> predicted 1 twice
