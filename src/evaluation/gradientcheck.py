@@ -2,6 +2,11 @@ import numpy as np
 
 
 def numerical_gradient(f, x, eps=1e-5):
+    #In this function we are estimating the gradient of a function f with 
+    #with respect to a variable x using central differences. The function f is a zero-argument function that 
+    #reads x from its closure, so editing x in place changes f's results. The function returns the estimated gradient as a NumPy array
+    #of the same shape as x. The function uses np.nditer to iterate over every element of x and compute the gradient for each element by nudging 
+    #it up and down by eps and computing the differences in f's output. The original value of x is restored after each computation.
     """Estimate df/dx with central differences: (f(x+eps) - f(x-eps)) / (2*eps).
 
     f is a zero-argument function that reads x from its closure, so editing x in
