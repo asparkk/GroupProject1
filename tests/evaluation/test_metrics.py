@@ -3,8 +3,8 @@ from sklearn.metrics import precision_recall_fscore_support  # used ONLY to cros
 from src.evaluation.metrics import (accuracy, confusion_matrix, precision_recall_f1, macro_f1, per_class_report, most_confused_pairs)
 
 # 6 samples, 3 classes. Hand-computed confusion matrix:
-#   true 0 -> predicted 0 once, 1 once   | true 1 -> predicted 1 twice
-#   true 2 -> predicted 2 once, 0 once
+# true 0 -> predicted 0 once, 1 once   | true 1 -> predicted 1 twice
+# true 2 -> predicted 2 once, 0 once
 Y_TRUE = np.array([0, 0, 1, 1, 2, 2])
 Y_PRED = np.array([0, 1, 1, 1, 2, 0])
 
@@ -38,7 +38,7 @@ def test_class_never_predicted_gives_zero_not_nan():
 
 
 def test_matches_sklearn_on_random_data():
-    rng = np.random.default_rng(0)  # fixed seed -> reproducible, like the project requires
+    rng = np.random.default_rng(0)  # Making a fixed seed so it is reproducible, like the project requires
     y_true = rng.integers(0, 10, 1000)
     y_pred = np.where(rng.random(1000) < 0.8, y_true, rng.integers(0, 10, 1000))
     p, r, f = precision_recall_f1(y_true, y_pred)
@@ -50,9 +50,9 @@ def test_confusion_matrix_invariants():
     rng = np.random.default_rng(1)
     y_true = rng.integers(0, 10, 500); y_pred = rng.integers(0, 10, 500)
     cm = confusion_matrix(y_true, y_pred)
-    assert cm.shape == (10, 10) and cm.sum() == 500                    # every sample counted once
-    assert np.array_equal(cm.sum(axis=1), np.bincount(y_true, minlength=10))  # rows = class counts
-    assert np.isclose(np.trace(cm) / 500, accuracy(y_true, y_pred))    # diagonal = accuracy
+    assert cm.shape == (10, 10) and cm.sum() == 500 # every sample counted once
+    assert np.array_equal(cm.sum(axis=1), np.bincount(y_true, minlength=10)) # rows = class counts
+    assert np.isclose(np.trace(cm) / 500, accuracy(y_true, y_pred))# diagonal = accuracy
 
 
 def test_most_confused_pairs():

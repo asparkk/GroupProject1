@@ -12,12 +12,12 @@ y_pred = np.where(rng.random(2000) < 0.9, y_true, rng.integers(0, 10, 2000))
 print(format_report(per_class_report(y_true, y_pred)))
 plot_confusion_matrix(confusion_matrix(y_true, y_pred), save_path='results/demo_confusion.png')
 
-# SAMPLE DATA ONLY: made-up training history
+# Using sample data only, made-up training history
 e = np.arange(1, 21)
 history = {'train_loss': list(2 * np.exp(-e / 5)), 'val_loss': list(2 * np.exp(-e / 6) + 0.01 * e),
            'train_acc': list(1 - np.exp(-e / 5)), 'val_acc': list(1 - np.exp(-e / 6))}
 plot_learning_curves(history, 'results/demo_curves.png')
 
-# Layout demo only: random pixels. Swap in Person B's real MNIST images if you have them loaded.
+# Layout demo only with random pixels
 X = rng.random((2000, 784))
 plot_misclassified(X, y_true, y_pred, save_path='results/demo_misclassified.png')

@@ -10,7 +10,7 @@ NUM_CLASSES = 10  # digits 0-9
 def accuracy(y_true, y_pred):
     """Fraction of predictions that match the true labels (the headline number)."""
     y_true, y_pred = np.asarray(y_true), np.asarray(y_pred)
-    # Catch shape bugs early: (N,1) vs (N,) would otherwise broadcast silently
+    # To catch shape bugs early: (N,1) vs (N,) would otherwise occur silently
     if y_true.shape != y_pred.shape:
         raise ValueError(f"Shape mismatch: {y_true.shape} vs {y_pred.shape}")
     # (y_true == y_pred) is a boolean array; the mean of booleans is the fraction True
@@ -20,8 +20,8 @@ def accuracy(y_true, y_pred):
 def confusion_matrix(y_true, y_pred, num_classes=NUM_CLASSES):
     """10x10 table where cm[i, j] = images of true digit i predicted as digit j.
 
-    The diagonal is correct predictions. Large off-diagonal entries show which
-    digits get mixed up (the "commonly misclassified pairs" analysis in the plan).
+    In the generated image, the diagonal is correct predictions. Large off-diagonal entries show which
+    digits get mixed up, or in other words the "commonly misclassified pairs" analysis in the plan.
     Every other metric below is derived from this matrix.
     """
     y_true, y_pred = np.asarray(y_true), np.asarray(y_pred)
@@ -74,7 +74,7 @@ def per_class_report(y_true, y_pred, num_classes=NUM_CLASSES):
     }
 
 
-def format_report(report):
+def format_report(report): #Using print conventions to create a printable table for the final report
     """Turn a per_class_report dict into a printable table for the final report."""
     lines = [f"{'digit':>5} {'prec':>7} {'recall':>7} {'f1':>7} {'n':>6}"]
     for c, m in report["per_class"].items():
@@ -84,9 +84,7 @@ def format_report(report):
 
 
 def most_confused_pairs(cm, top_k=5):
-    """Largest off-diagonal entries as [(true, pred, count), ...].
-
-    Answers 'which digit pairs does the model confuse most' for the error analysis."""
+    """Largest off-diagonal entries as [(true, pred, count), ...]. This answers 'which digit pairs does the model confuse most' for the error analysis."""
     off = cm.copy()
     np.fill_diagonal(off, 0)  # ignore correct predictions
     order = np.argsort(off, axis=None)[::-1][:top_k]  # flat indices, biggest first

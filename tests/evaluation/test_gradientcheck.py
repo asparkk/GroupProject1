@@ -6,7 +6,7 @@ def test_quadratic():
     x = np.array([1.0, -2.0, 3.0])
     num = numerical_gradient(lambda: np.sum(x ** 2), x)   # true gradient is 2x
     assert np.allclose(num, 2 * x, atol=1e-6)
-    assert np.array_equal(x, [1.0, -2.0, 3.0])            # x must be restored
+    assert np.array_equal(x, [1.0, -2.0, 3.0]) # x must be restored
 
 
 def test_2d_function():
@@ -22,7 +22,7 @@ def test_detects_wrong_gradient():
 
 
 def test_softmax_cross_entropy_gradients():
-    # Stand-in for A's output layer: linear layer + softmax + cross-entropy.
+    # Using a stand-in for A's output layer: linear layer + softmax + cross-entropy.
     # The known gradient is (probabilities - one_hot_labels) / N.
     rng = np.random.default_rng(0)
     X = rng.normal(size=(5, 4)); y = rng.integers(0, 3, 5)
@@ -30,7 +30,7 @@ def test_softmax_cross_entropy_gradients():
 
     def probs():
         z = X @ params["W"] + params["b"]
-        z = z - z.max(axis=1, keepdims=True)              # numerical stability
+        z = z - z.max(axis=1, keepdims=True) # numerical stability
         e = np.exp(z)
         return e / e.sum(axis=1, keepdims=True)
 
