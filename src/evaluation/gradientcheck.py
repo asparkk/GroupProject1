@@ -35,9 +35,10 @@ def relative_error(a, b, floor=1e-8):
 
 
 def check_gradients(loss_fn, params, grads, eps=1e-5, tol=1e-6):
-    """Compare analytical grads (from A's backprop) with numerical ones, per parameter.
+    """Compare analytical gradients from backpropogation done in the nueral network
+     with numerical ones, per parameter.
 
-    params and grads are dicts with the same keys (W1, b1, W2, b2), as agreed in
+    params and gradients are dicts with the same keys (W1, b1, W2, b2), as agreed in
     INTERFACES.md. Returns the error for each key, so if only W1 fails you know
     the hidden-layer backprop is the problem."""
     errors = {}

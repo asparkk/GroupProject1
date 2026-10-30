@@ -1,6 +1,5 @@
 """Evaluation metrics written from scratch with NumPy.
-
-Project role (Person C): every function takes y_true and y_pred, both shape (N,)
+Every function takes y_true and y_pred, both shape (N,)
 with integers 0-9 (see docs/INTERFACES.md), so it works on any model's output.
 """
 import numpy as np
